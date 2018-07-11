@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from './App.css';
 import logo from './logo.svg';
+import { run } from './services/discord';
 
 const App = () => (
   <div className={styles.app}>
@@ -12,6 +13,7 @@ const App = () => (
     <p className={styles.appIntro}>
       To get started, edit <code>src/App.tsx</code> and save to reload.
     </p>
+    <button onClick={run}>Login To Server</button>
   </div>
 );
 

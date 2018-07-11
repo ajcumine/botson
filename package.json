@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.52",
+    "discord.js": "^11.3.2",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "object-assign": "4.1.1",
