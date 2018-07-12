@@ -1,7 +1,8 @@
 import Discord from 'discord.js';
 import logger from '../logger';
+import commands from './commands';
 
-const prefix = '!';
+export const PREFIX = '!';
 
 export const run = () => {
   const client = new Discord.Client();
@@ -13,70 +14,35 @@ export const run = () => {
   client.login(process.env.DISCORD_TOKEN);
 
   client.on('message', message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift();
+    const args = message.content.slice(PREFIX.length).split(/ +/);
+    const commandName = args.shift();
 
-    if (command === 'args-info') {
-      args.length > 0
-        ? message.channel.send(`Command name: ${command}\nArguments: ${args}`)
-        : message.channel.send(
-            `You didn't provide any arguments, ${message.author}!`,
-          );
-    }
+    if (!commandName || !commands[commandName]) return;
 
-    if (command === 'avatar') {
-      if (!message.mentions.users.size) {
-        return message.channel.send(
-          `Your avatar: ${message.author.displayAvatarURL}`,
-        );
-      }
-      const avatarList = message.mentions.users.map(user => {
-        return `${user.username}'s avatar: ${user.displayAvatarURL}`;
-      });
-      message.channel.send(avatarList);
-    }
+    try {
+      const command = commands[commandName];
 
-    if (command === 'prune') {
-      const amount = parseInt(args[0], 10) + 1;
-
-      if (isNaN(amount)) {
-        return message.reply("that doesn't seem to be a valid number.");
+      if (command.guildOnly && message.channel.type !== 'text') {
+        return message.reply('This command cannot be run inside DMs!');
       }
 
-      if (amount <= 1 || amount > 100) {
-        return message.reply('you need to input a number between 1 and 99.');
+      if (command.argsRequired && !args.length) {
+        let reply = 'this command requires arguments';
+        if (!!command.usage) {
+          reply += `\nThe proper usage would be: \`${PREFIX}${commandName} ${
+            command.usage
+          }\``;
+        }
+
+        return message.reply(reply);
       }
-      try {
-        message.channel.bulkDelete(amount, true);
-      } catch (error) {
-        logger.error(error);
-      }
-    }
 
-    if (command === 'kick') {
-      if (!message.mentions.users.size) {
-        return message.reply('you need to tag a user in order to kick them!');
-      }
-      const taggedUser = message.mentions.users.first();
-      message.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    }
-
-    if (command === 'ping') {
-      message.channel.send('pong');
-    }
-
-    if (command === 'server') {
-      message.channel.send(`This server's name is: ${message.guild.name}`);
-    }
-
-    if (command === 'user') {
-      message.channel.send(
-        `Your username: ${message.author.username}\nYour ID: ${
-          message.author.id
-        }`,
-      );
+      command.execute(message, args);
+    } catch (error) {
+      logger.error(error);
+      message.reply('there was an error trying to execute that command');
     }
   });
 };
