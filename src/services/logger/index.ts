@@ -1,11 +1,8 @@
-import winston from 'winston';
+import { createLogger, format, transports } from 'winston';
 
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console({
-      level: 'info',
-    }),
-  ],
+const logger = createLogger({
+  format: format.prettyPrint(),
+  transports: [new transports.Console()],
 });
 
 export default logger;
