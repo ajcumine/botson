@@ -1,6 +1,7 @@
+import { Message } from 'discord.js';
 import { Command } from './';
 
-export const execute = message => {
+export const execute = (message: Message) => {
   message.channel.send('Pong.');
 };
 

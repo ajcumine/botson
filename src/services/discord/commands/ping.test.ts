@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+import MockMessage from '../mocks/mock-message';
 import ping, { execute } from './ping';
 
 describe('!ping command', () => {
@@ -7,12 +9,10 @@ describe('!ping command', () => {
 
   describe('execute', () => {
     it('responds with "Pong."', () => {
-      const messageSendSpy = jest.fn();
-      const mockMessage = {
-        channel: {
-          send: messageSendSpy,
-        },
-      };
+      const messageSendSpy = jest.fn() as Message['channel']['send'];
+      const mockMessage = new MockMessage() as Message;
+      const mockChannel = { send: messageSendSpy };
+      mockMessage.channel = mockChannel as Message['channel'];
 
       execute(mockMessage);
       expect(messageSendSpy).toHaveBeenCalledWith('Pong.');
