@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`!prune command handles !prune commands 1`] = `
+Object {
+  "argsRequired": true,
+  "description": "Deletes a suppiled number of messages in the current channel",
+  "execute": [Function],
+  "guildOnly": false,
+  "usage": "<number>",
+}
+`;

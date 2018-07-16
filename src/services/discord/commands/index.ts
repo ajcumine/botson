@@ -1,5 +1,4 @@
 import Discord from 'discord.js';
-import argsInfo from './args-info';
 import help from './help';
 import ping from './ping';
 import prune from './prune';
@@ -18,7 +17,6 @@ export interface Commands {
 }
 
 const commands: Commands = {
-  argsInfo,
   help,
   ping,
   prune,

@@ -1,12 +1,14 @@
 import { Command } from './';
 
+export const execute = message => {
+  message.channel.send('Pong.');
+};
+
 const ping: Command = {
+  execute,
   argsRequired: false,
   description: 'Ping!',
   guildOnly: false,
-  execute(message, args) {
-    message.channel.send('Pong.');
-  },
 };
 
 export default ping;

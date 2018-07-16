@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`!ping command handles !ping commands 1`] = `
+Object {
+  "argsRequired": false,
+  "description": "Ping!",
+  "execute": [Function],
+  "guildOnly": false,
+}
+`;

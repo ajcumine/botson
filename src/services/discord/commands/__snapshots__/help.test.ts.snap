@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`!help command execute if there are args if the arg is a valid command replies to the author in channel with command instructions 1`] = `
+Array [
+  "**Name:** ping",
+  "**Description:** Ping!",
+]
+`;
+
+exports[`!help command execute if there are no args replies to the author in channel and DMs help commands 1`] = `
+Array [
+  "Here's a list of all my commands:",
+  "\`!help\`, \`!ping\`, \`!prune\`, \`!role\`",
+  "
+You can send \`!help [command name]\` to get info on a specific command!",
+]
+`;
+
+exports[`!help command handles !help commands 1`] = `
+Object {
+  "argsRequired": false,
+  "description": "Provide a list of all the bot commands or specific info for a single command",
+  "execute": [Function],
+  "guildOnly": false,
+  "usage": "[command name]",
+}
+`;

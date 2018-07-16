@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`commands is a list of command handlers 1`] = `
+Object {
+  "help": Object {
+    "argsRequired": false,
+    "description": "Provide a list of all the bot commands or specific info for a single command",
+    "execute": [Function],
+    "guildOnly": false,
+    "usage": "[command name]",
+  },
+  "ping": Object {
+    "argsRequired": false,
+    "description": "Ping!",
+    "execute": [Function],
+    "guildOnly": false,
+  },
+  "prune": Object {
+    "argsRequired": true,
+    "description": "Deletes a suppiled number of messages in the current channel",
+    "execute": [Function],
+    "guildOnly": false,
+    "usage": "<number>",
+  },
+  "role": Object {
+    "argsRequired": true,
+    "description": "Change a users role",
+    "execute": [Function],
+    "guildOnly": true,
+    "usage": "<user> <role>",
+  },
+}
+`;

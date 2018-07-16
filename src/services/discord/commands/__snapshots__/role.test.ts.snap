@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`!role command handles !role commands 1`] = `
+Object {
+  "argsRequired": true,
+  "description": "Change a users role",
+  "execute": [Function],
+  "guildOnly": true,
+  "usage": "<user> <role>",
+}
+`;
