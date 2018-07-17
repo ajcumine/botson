@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
-import { PREFIX } from '../';
+import commands, { Command } from '.';
+import { PREFIX } from '..';
 import logger from '../../logger';
-import commands, { Command } from './';
 
 export const execute = async (message: Message, args: string[]) => {
   const data: string[] = [];

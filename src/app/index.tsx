@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './App.css';
+import { run } from '../services/discord';
+import styles from './index.css';
 import logo from './logo.svg';
-import { run } from './services/discord';
 
 const App = () => {
   run();
