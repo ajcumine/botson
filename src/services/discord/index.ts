@@ -14,6 +14,13 @@ export const run = () => {
   client.login(process.env.DISCORD_TOKEN);
 
   client.on('message', message => {
+    if (
+      process.env.PEACH_REACTION_TRIGGER &&
+      message.content.toLowerCase().includes(process.env.PEACH_REACTION_TRIGGER)
+    ) {
+      message.react('🍑');
+    }
+
     if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
     const args = message.content.slice(PREFIX.length).split(/ +/);
