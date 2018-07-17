@@ -1,8 +1,9 @@
+import { Message } from 'discord.js';
 import { PREFIX } from '../';
 import logger from '../../logger';
 import commands, { Command } from './';
 
-export const execute = async (message, args) => {
+export const execute = async (message: Message, args: string[]) => {
   const data: string[] = [];
   if (!args.length) {
     data.push("Here's a list of all my commands:");

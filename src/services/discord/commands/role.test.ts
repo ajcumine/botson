@@ -1,4 +1,5 @@
-import Discord from 'discord.js';
+import { Message } from 'discord.js';
+import MockMessage from '../mocks/mock-message';
 import role, { execute } from './role';
 
 describe('!role command', () => {
@@ -9,23 +10,23 @@ describe('!role command', () => {
   describe('execute', () => {
     describe('if the role exists', () => {
       it('responds with a role switch message', () => {
-        const messageSendSpy = jest.fn();
-        const mockMessage = {
-          channel: {
-            send: messageSendSpy,
-          },
-          guild: {
-            roles: [{ name: 'knownRole' }],
-          },
-          mentions: {
-            users: {
-              first: () => 'User',
-            },
-          },
-        };
+        const mockMessage = new MockMessage() as Message;
+
+        // set up Message.channel mock
+        const channelSendSpy = jest.fn() as Message['channel']['send'];
+        const mockChannel = { send: channelSendSpy };
+        mockMessage.channel = mockChannel as Message['channel'];
+
+        // set up Message.mentions mock
+        const mockFirstUser = jest.fn(
+          () => 'User',
+        ) as Message['mentions']['users']['first'];
+        const mockUsers = { first: mockFirstUser };
+        const mockMentions = { users: mockUsers };
+        mockMessage.mentions = mockMentions as Message['mentions'];
 
         execute(mockMessage, ['@User', 'knownRole']);
-        expect(messageSendSpy).toHaveBeenCalledWith(
+        expect(channelSendSpy).toHaveBeenCalledWith(
           'You tried to set User to knownRole',
         );
       });
@@ -33,18 +34,19 @@ describe('!role command', () => {
 
     describe('if the role does not exist', () => {
       it('responds with the available roles', () => {
-        const replySpy = jest.fn();
-        const mockMessage = {
-          guild: {
-            roles: [{ name: 'knownRole' }],
-          },
-          mentions: {
-            users: {
-              first: () => 'User',
-            },
-          },
-          reply: replySpy,
-        };
+        const mockMessage = new MockMessage() as Message;
+
+        // set up Message.mentions mock
+        const mockFirstUser = jest.fn(
+          () => 'User',
+        ) as Message['mentions']['users']['first'];
+        const mockUsers = { first: mockFirstUser };
+        const mockMentions = { users: mockUsers };
+        mockMessage.mentions = mockMentions as Message['mentions'];
+
+        // set up Message.reply mock
+        const replySpy = jest.fn() as Message['reply'];
+        mockMessage.reply = replySpy;
 
         execute(mockMessage, ['@User', 'unknownRole']);
         expect(replySpy).toHaveBeenCalledWith(

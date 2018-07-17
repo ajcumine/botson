@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+import MockMessage from '../mocks/mock-message';
 import help, { execute } from './help';
 
 describe('!help command', () => {
@@ -8,21 +10,25 @@ describe('!help command', () => {
   describe('execute', () => {
     describe('if there are no args', async () => {
       it('replies to the author in channel and DMs help commands', async () => {
+        const mockMessage = new MockMessage() as Message;
+
+        // set up Message.author mock
         let sentMessageData;
         const authorSendSpy = jest.fn(data => {
           sentMessageData = data;
           return Promise.resolve();
-        });
-        const replySpy = jest.fn();
-        const mockMessage = {
-          author: {
-            send: authorSendSpy,
-          },
-          channel: {
-            type: 'notDm',
-          },
-          reply: replySpy,
-        };
+        }) as Message['author']['send'];
+        const mockAuthor = { send: authorSendSpy };
+        mockMessage.author = mockAuthor as Message['author'];
+
+        // set up Message.channel mock
+        const mockChannel = { type: 'group' };
+        mockMessage.channel = mockChannel as Message['channel'];
+
+        // set up Message.reply mock
+        const replySpy = jest.fn() as Message['reply'];
+        mockMessage.reply = replySpy;
+
         await execute(mockMessage, []);
         expect.assertions(3);
         expect(authorSendSpy).toHaveBeenCalled();
@@ -36,10 +42,12 @@ describe('!help command', () => {
     describe('if there are args', () => {
       describe('if the arg is an invalid command', () => {
         it('informs the author', () => {
-          const replySpy = jest.fn();
-          const mockMessage = {
-            reply: replySpy,
-          };
+          const mockMessage = new MockMessage() as Message;
+
+          // set up Message.reply mock
+          const replySpy = jest.fn() as Message['reply'];
+          mockMessage.reply = replySpy;
+
           execute(mockMessage, ['_']);
           expect(replySpy).toHaveBeenCalledWith("that's not a valid command!");
         });
@@ -47,16 +55,19 @@ describe('!help command', () => {
 
       describe('if the arg is a valid command', () => {
         it('replies to the author in channel with command instructions', () => {
+          const mockMessage = new MockMessage() as Message;
+
+          // set up Message.channel mock
           let sentMessageData;
-          const sendSpy = jest.fn(data => (sentMessageData = data));
-          const mockMessage = {
-            channel: {
-              send: sendSpy,
-            },
-          };
+          const channelSendSpy = jest.fn(
+            data => (sentMessageData = data),
+          ) as Message['channel']['send'];
+          const mockChannel = { send: channelSendSpy };
+          mockMessage.channel = mockChannel as Message['channel'];
+
           execute(mockMessage, ['ping']);
           expect(sentMessageData).toMatchSnapshot();
-          expect(sendSpy).toHaveBeenCalled();
+          expect(channelSendSpy).toHaveBeenCalled();
         });
       });
     });

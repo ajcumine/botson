@@ -9,8 +9,10 @@ describe('!ping command', () => {
 
   describe('execute', () => {
     it('responds with "Pong."', () => {
-      const messageSendSpy = jest.fn() as Message['channel']['send'];
       const mockMessage = new MockMessage() as Message;
+
+      // set up Message.channel mock
+      const messageSendSpy = jest.fn() as Message['channel']['send'];
       const mockChannel = { send: messageSendSpy };
       mockMessage.channel = mockChannel as Message['channel'];
 

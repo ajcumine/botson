@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+import MockMessage from '../mocks/mock-message';
 import prune, { execute } from './prune';
 
 describe('!prune command', () => {
@@ -7,12 +9,13 @@ describe('!prune command', () => {
 
   describe('execute', () => {
     it('deletes the number of messages provided +1 for the trigger command', () => {
-      const bulkDeleteSpy = jest.fn();
-      const mockMessage = {
-        channel: {
-          bulkDelete: bulkDeleteSpy,
-        },
-      };
+      const mockMessage = new MockMessage() as Message;
+
+      // set up Message.channel mock
+      const bulkDeleteSpy = jest.fn() as Message['channel']['bulkDelete'];
+      const mockChannel = { bulkDelete: bulkDeleteSpy };
+      mockMessage.channel = mockChannel as Message['channel'];
+
       const args = ['3'];
 
       execute(mockMessage, args);
@@ -20,14 +23,17 @@ describe('!prune command', () => {
     });
 
     it('does not delete if a number is not provided', () => {
-      const bulkDeleteSpy = jest.fn();
-      const replySpy = jest.fn();
-      const mockMessage = {
-        channel: {
-          bulkDelete: bulkDeleteSpy,
-        },
-        reply: replySpy,
-      };
+      const mockMessage = new MockMessage() as Message;
+
+      // set up Message.channel mock
+      const bulkDeleteSpy = jest.fn() as Message['channel']['bulkDelete'];
+      const mockChannel = { bulkDelete: bulkDeleteSpy };
+      mockMessage.channel = mockChannel as Message['channel'];
+
+      // set up Message.reply mock
+      const replySpy = jest.fn() as Message['reply'];
+      mockMessage.reply = replySpy;
+
       const args = ['not-a-number'];
 
       execute(mockMessage, args);
@@ -38,14 +44,17 @@ describe('!prune command', () => {
     });
 
     it('does not delete if the number provided is not in the required range', () => {
-      const bulkDeleteSpy = jest.fn();
-      const replySpy = jest.fn();
-      const mockMessage = {
-        channel: {
-          bulkDelete: bulkDeleteSpy,
-        },
-        reply: replySpy,
-      };
+      const mockMessage = new MockMessage() as Message;
+
+      // set up Message.channel mock
+      const bulkDeleteSpy = jest.fn() as Message['channel']['bulkDelete'];
+      const mockChannel = { bulkDelete: bulkDeleteSpy };
+      mockMessage.channel = mockChannel as Message['channel'];
+
+      // set up Message.reply mock
+      const replySpy = jest.fn() as Message['reply'];
+      mockMessage.reply = replySpy;
+
       const args = ['1000000'];
 
       execute(mockMessage, args);

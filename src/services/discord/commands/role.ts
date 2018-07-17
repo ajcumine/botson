@@ -1,7 +1,7 @@
-import Discord from 'discord.js';
+import { Message } from 'discord.js';
 import { Command } from './';
 
-export const execute = (message, args) => {
+export const execute = (message: Message, args: string[]) => {
   const taggedUser = message.mentions.users.first();
   const selectedRole = args.slice(1).join(' ');
   const guildRoles = message.guild.roles;

@@ -1,5 +1,8 @@
 class MockMessage {
-  public channel: object = {};
+  public readonly guild;
+  constructor() {
+    this.guild = { roles: [{ name: 'knownRole' }] };
+  }
 }
 
 export default MockMessage;
