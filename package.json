@@ -36,11 +36,11 @@
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/index.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs,ts,tsx}"
     ],
-    "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
       "^.+\\.(js|jsx|mjs|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
@@ -97,6 +97,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "^23.3.0",
+    "jsdom": "^11.11.0",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-import": "^11.1.0",
     "postcss-loader": "2.0.8",
