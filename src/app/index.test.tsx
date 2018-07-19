@@ -1,8 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import App from '.';
 
-jest.mock('../services/discord');
+import App from './';
+
+jest.mock('services/discord');
 
 describe('App', () => {
   it('renders', () => {

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Home from '.';
+import Home from './';
 
 describe('Home page', () => {
   it('renders', () => {

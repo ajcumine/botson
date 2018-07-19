@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": false,
+    "paths": {
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "services/*": ["src/services/*"]
+    },
     "pretty": true,
     "sourceMap": true,
     "strict": true,

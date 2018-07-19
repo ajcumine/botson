@@ -7,5 +7,19 @@
     ],
     "@babel/react",
     "@babel/typescript"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "root": ["./src"],
+        "alias": {
+          "components": "./src/components",
+          "pages": "./src/pages",
+          "services": "./src/services"
+        }
+      }
+    ]
   ]
 }

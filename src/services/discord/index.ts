@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import logger from '../logger';
+import logger from 'services/logger';
 import commands from './commands';
 
 export const PREFIX = '!';

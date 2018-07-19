@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { Command } from '.';
+import { Command } from './';
 
 export const execute = (message: Message, args: string[]) => {
   const taggedUser = message.mentions.users.first();

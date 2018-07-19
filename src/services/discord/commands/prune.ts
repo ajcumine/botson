@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { Command } from '.';
+import { Command } from './';
 
 export const execute = (message: Message, args: string[]) => {
   const amount = parseInt(args[0], 10) + 1;
