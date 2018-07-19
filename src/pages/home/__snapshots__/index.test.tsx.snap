@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page renders 1`] = `
+<p>
+  To get started, edit 
+  <code>
+    src/App.tsx
+  </code>
+   and save to reload.
+</p>
+`;

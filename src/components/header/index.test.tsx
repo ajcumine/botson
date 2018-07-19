@@ -1,12 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import App from '.';
+import Header from '.';
 
-jest.mock('../services/discord');
-
-describe('App', () => {
+describe('Header component', () => {
   it('renders', () => {
-    const component = shallow(<App />);
+    const component = shallow(<Header />);
     expect(component).toMatchSnapshot();
   });
 });

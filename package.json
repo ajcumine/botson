@@ -23,7 +23,8 @@
     "eslint": "eslint src config",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "yarn jest",
+    "test:watch": "yarn jest --watch"
   },
   "resolutions": {
     "babel-core": "^7.0.0-bridge.0"
@@ -37,6 +38,9 @@
       "<rootDir>/config/polyfills.js"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/config/jest/index.js",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs,ts,tsx}"
@@ -83,6 +87,9 @@
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "^2.4.1",
     "css-loader": "0.28.11",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
